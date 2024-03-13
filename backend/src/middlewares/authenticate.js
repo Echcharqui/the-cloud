@@ -15,7 +15,6 @@ const authenticate = async (req, res, next) => {
       })
     }
 
-
     try {
       // Verify the refresh token and create a new access token
       const payload = jwt.verify(accessToken, process.env.JWT_AUTH_SECRET)

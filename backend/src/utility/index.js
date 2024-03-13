@@ -1,4 +1,3 @@
-
 const { tokenGenerator } = require('./tokensGenerator')
 const { tokensCategories } = require('./tokensCategories')
 

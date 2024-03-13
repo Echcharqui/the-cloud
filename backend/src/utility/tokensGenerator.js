@@ -6,7 +6,6 @@ const { tokensCategories } = require('./tokensCategories')
 
 const tokenGenerator = async (user, catagory) => {
   switch (catagory) {
-
     case tokensCategories.authentication: {
       const token = jwt.sign(
         {
@@ -14,7 +13,7 @@ const tokenGenerator = async (user, catagory) => {
         },
         process.env.JWT_AUTH_SECRET,
         {
-          expiresIn: '15m' // Expires in 15 minutes
+          expiresIn: '7d' // Expires in 15 minutes
         }
       )
       return token

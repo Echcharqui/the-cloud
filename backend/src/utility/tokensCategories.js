@@ -1,6 +1,6 @@
 const tokensCategories = {
-    authentication: 'authentication',
-    refresh: 'refresh'
+  authentication: 'authentication',
+  refresh: 'refresh'
 }
 
 module.exports = { tokensCategories }
