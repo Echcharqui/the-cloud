@@ -8,11 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: $blueCharcoal;
-
   & .page {
-    color: $specialWhite;
-
     display: flex;
     justify-content: center;
     align-items: center;

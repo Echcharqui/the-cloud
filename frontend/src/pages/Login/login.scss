@@ -1,0 +1,70 @@
+@import "../../assets/const/colors";
+
+.conainer {
+    min-width: 300px;
+    max-width: 450px;
+    height: auto;
+
+    padding: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    // border: 1px solid black;
+
+    & .logo {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+
+
+
+    & .form {
+        width: 100%;
+
+        & .inputcontainer {
+            width: 100%;
+            margin-bottom: 10px;
+
+            & .inputText {
+                width: 100% !important;
+            }
+
+            &-icon {
+                position: relative;
+
+                & .icon {
+                    position: absolute;
+                    top: 15px;
+                    right: 5px;
+
+                    cursor: pointer;
+
+                    transition-property: opacity;
+                    transition-duration: 300ms;
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+        }
+
+        & .external-error {
+            font-size: 14px;
+            color: red;
+        }
+
+        & .buttoncontainer {
+            width: 100%;
+
+            & .btn {
+                width: 100% !important;
+            }
+        }
+
+    }
+}

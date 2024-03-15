@@ -13,11 +13,11 @@ const Preloader = ({ UpdateUser, HandelPreLoader }) => {
     useEffect(() => {
         const accessToken = localStorage.getItem('access_token');
         if (accessToken) {
-            // checkIFtheUserIsAuth()
+            checkIFtheUserIsAuth()
         } else {
-            setTimeout(() => {
+            // setTimeout(() => {
                 HandelPreLoader(false)
-            }, 1000);
+            // }, 1000);
         }
     })
 
@@ -26,7 +26,7 @@ const Preloader = ({ UpdateUser, HandelPreLoader }) => {
 
         var config = {
             method: 'get',
-            url: `/auth/v3/check-auth`,
+            url: `/auth/v1/check-auth`,
         };
 
         await axiosInstance(config)

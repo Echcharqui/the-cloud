@@ -2,12 +2,15 @@ import React, { lazy, Suspense } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import { links } from '../../utility'
+
 // import Header from '../../layouts/header/TheHeader.jsx'
 // import Footer from '../../layouts/Footer/Footer.jsx'
 
 // pages importing
 const PreLoader = lazy(() => import("../../pages/Preloader/Preloader.jsx"))
 const Home = lazy(() => import("../../pages/Home/Home.jsx"))
+const Login = lazy(() => import("../../pages/Login/Login.jsx"))
 const Upload = lazy(() => import("../../pages/Upload/Upload.jsx"))
 const NotFound = lazy(() => import("../../pages/NotFound/NotFound.jsx"))
 
@@ -31,7 +34,7 @@ const Balancer = ({ preLoader, user }) => {
                 </Suspense>
             )
         } else {
-            return <Navigate to="/sign-in" />;
+            return <Navigate to="/login" />;
         }
     }
 
@@ -59,18 +62,25 @@ const Balancer = ({ preLoader, user }) => {
                         <Routes>
                             <Route
                                 exact
-                                path="/"
+                                path={links.home}
                                 element={
-                                    <RenderPublicPage
+                                    <RenderPrivatePage
                                         Page={Home}
                                     />
                                 }
                             />
                             <Route
-                                exact
-                                path="/upload"
+                                path={links.login}
                                 element={
-                                    <RenderPublicPage
+                                    <RenderUnAuthPage
+                                        Page={Login}
+                                    />
+                                }
+                            />
+                            <Route
+                                path={links.upload}
+                                element={
+                                    <RenderPrivatePage
                                         Page={Upload}
                                     />
                                 }
