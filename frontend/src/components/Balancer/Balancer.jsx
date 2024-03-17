@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { links } from '../../utility'
 
-// import Header from '../../layouts/header/TheHeader.jsx'
+import Header from '../../layouts/Header/Header.jsx'
 // import Footer from '../../layouts/Footer/Footer.jsx'
 
 // pages importing
@@ -30,6 +30,7 @@ const Balancer = ({ preLoader, user }) => {
         if (user.data) {
             return (
                 <Suspense fallback={<div className="w-screen h-screen"></div>} >
+                    <Header />
                     <Page />
                 </Suspense>
             )
@@ -58,7 +59,6 @@ const Balancer = ({ preLoader, user }) => {
                     <PreLoader />
                     :
                     <BrowserRouter>
-                        {/* <Header /> */}
                         <Routes>
                             <Route
                                 exact

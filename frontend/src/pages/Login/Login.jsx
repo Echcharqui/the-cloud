@@ -7,13 +7,10 @@ import { axiosInstance, links } from '../../utility'
 import { LoginValidationSchema } from '../../validations'
 import { updateUser } from '../../redux/actions'
 
-import { TextField, Button } from '@mui/material'
+import { TextField, Button, CircularProgress, Container, Box, Typography } from '@mui/material';
 import { AiTwotoneEyeInvisible, AiTwotoneEye } from "react-icons/ai";
 
-
-// import Logo from '../../assets/images/logo/small_logo.png'
-
-import "./login.scss"
+import { PiCloudArrowDownFill } from "react-icons/pi";
 
 const Login = ({ UpdateUser }) => {
 
@@ -72,128 +69,147 @@ const Login = ({ UpdateUser }) => {
     }
 
     return (
-        <div className='page'>
-            <div className="conainer">
-                {/* <img
-                    className='logo'
-                    src={Logo}
-                    alt='logo'
-                /> */}
-                {/* <Typography variant="h4" component="h1" >connexion</Typography> */}
+        <Container
+            maxWidth="sm" // Adjusted for a smaller, more centered form
+            sx={{
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
+            {
+                isLoading ?
+                    <Box textAlign="center">
+                        <CircularProgress size={25} />
+                        <Typography variant="body1" sx={{ mt: 2, fontSize: 14 }}>Authentification en cours,</Typography>
+                        <Typography variant="body1" sx={{ fontSize: 14 }}>veuillez patienter…</Typography>
+                    </Box>
+                    :
 
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={LoginValidationSchema}
+                        onSubmit={handleSubmit}
+                    >
+                        {({ handleSubmit }) => (
+                            <Box
+                                sx={{ maxWidth: "400px", minWidth: "350px" }}
+                            >
+                                <Form onKeyPress={handleKeyPress}>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: "center",
+                                            alignItems: 'center',
+                                            flexDirection: 'column',
+                                            gap: 2, // Adds space between elements
+                                        }}
+                                    >
+                                        {/* logo */}
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                justifyContent: "center",
+                                                alignItems: 'center',
+                                                flexDirection: 'column',
+                                            }}
+                                        >
+                                            <PiCloudArrowDownFill
+                                                color='#1976d2'
+                                                size={80}
+                                            />
 
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={LoginValidationSchema}
-                    onSubmit={handleSubmit}
-                >
-                    {({ handleSubmit }) => (
-                        <Form className="form" onKeyPress={(event) => handleKeyPress(event, handleSubmit)}>
+                                            <Typography sx={{ textAlign:"center", fontSize: 14, color:"#1976d2",fontWeight:"bold" }}>Se connecter</Typography>
 
+                                        </Box>
 
-                            {/* identifier */}
-                            <div className="inputcontainer">
-                                <Field name="identifier">
-                                    {
-                                        ({ field, meta }) => {
-                                            return (
+                                        {/* identifier */}
+                                        <Field name="identifier">
+                                            {({ field, meta }) => (
                                                 <TextField
-                                                    className='inputText'
-                                                    type='text'
+                                                    {...field}
                                                     label="Identifiant"
-                                                    color="primary"
+                                                    inputProps={{ maxLength: 320 }}
                                                     variant='filled'
-                                                    inputProps={
-                                                        {
-                                                            maxLength: 64,
-                                                            minLength: 5
-                                                        }
-                                                    }
-                                                    name={field.name}
-                                                    id={field.name}
-                                                    value={field.value}
-                                                    onBlur={field.onBlur}
-                                                    onChange={field.onChange}
-                                                    error={meta.touched && meta.error}
-                                                    helperText={meta.error}
+                                                    fullWidth
+                                                    error={meta.touched && !!meta.error}
+                                                    helperText={meta.touched && meta.error}
                                                 />
-                                            )
-                                        }
-                                    }
-                                </Field>
-                            </div>
+                                            )}
+                                        </Field>
 
-
-                            {/* password */}
-                            <div className="inputcontainer inputcontainer-icon">
-                                <Field name="password">
-                                    {
-                                        ({ field, meta }) => {
-                                            return (
-                                                <>
+                                        {/* password */}
+                                        <Field name="password">
+                                            {({ field, meta }) => (
+                                                <Box sx={{ position: 'relative', width: "100%" }}>
                                                     <TextField
-                                                        className='inputText'
-                                                        label="Mot de passe"
-                                                        color="primary"
-                                                        variant='filled'
-                                                        inputProps={
-                                                            {
-                                                                maxLength: 25,
-                                                                minLength: 8
-                                                            }
-                                                        }
-                                                        name={field.name}
-                                                        id={field.name}
-                                                        value={field.value}
-                                                        onBlur={field.onBlur}
-                                                        onChange={field.onChange}
-                                                        error={meta.touched && meta.error}
-                                                        helperText={meta.error}
+                                                        {...field}
                                                         type={showPassword ? 'text' : 'password'}
+                                                        label="Mot de passe"
+                                                        inputProps={{ maxLength: 64 }}
+                                                        variant='filled'
+                                                        fullWidth
+                                                        error={meta.touched && !!meta.error}
+                                                        helperText={meta.touched && meta.error}
+
                                                     />
-
-                                                    <div
-                                                        className='icon'
-                                                        aria-label="toggle password visibility"
+                                                    {/* show and hide password  */}
+                                                    <Box
+                                                        sx={{
+                                                            position: 'absolute',
+                                                            top: '30px',
+                                                            right: 10,
+                                                            transform: 'translateY(-50%)',
+                                                            cursor: 'pointer',
+                                                        }}
                                                         onClick={() => setShowPassword(!showPassword)}
-                                                        edge="end"
                                                     >
-                                                        {showPassword ? <AiTwotoneEye size={25} color='rgba(0, 0, 0, 0.6)' /> : <AiTwotoneEyeInvisible size={25} color='rgba(0, 0, 0, 0.6)' />}
-                                                    </div>
-                                                </>
-                                            )
-                                        }
-                                    }
-                                </Field>
-                            </div>
+                                                        {
+                                                            showPassword ?
+                                                                <AiTwotoneEye
+                                                                    color='rgba(0, 0, 0, 0.6)'
+                                                                    size={20}
+                                                                />
+                                                                :
+                                                                <AiTwotoneEyeInvisible
+                                                                    color='rgba(0, 0, 0, 0.6)'
+                                                                    size={20}
+                                                                />
+                                                        }
+                                                    </Box>
+                                                </Box>
+                                            )}
+                                        </Field>
 
-                            <div className="buttoncontainer">
-                                <Field>
-                                    {
-                                        (props) => {
-                                            return (
-                                                <Button
-                                                    className='btn'
-                                                    variant="contained"
-                                                    color='success'
-                                                    onClick={() => props.form.handleSubmit()}
-                                                    disabled={props.form.values.identifier.length <= 4 || props.form.values.password.length <= 7}
-                                                >Connexion</Button>
-                                            )
-                                        }
-                                    }
-                                </Field>
-                            </div>
+                                        {/* submit button */}
+                                        <Field>
+                                            {({ form }) => {
+                                                return (
+                                                    <Button
+                                                        type="submit"
+                                                        variant="contained"
+                                                        color='info'
+                                                        fullWidth
+                                                        disabled={form.values.password.length < 8 || form.values.identifier.length < 5}
+                                                    >
+                                                        Connexion
+                                                    </Button>
+                                                )
+                                            }}
+                                        </Field>
 
-                            {/* external erros that dont belong to an input */}
-                            {(externalEroor && externalEroor.statusCode !== 400) && <p className="external-error"> {externalEroor.error.message} !</p>}
-
-                        </Form>
-                    )}
-                </Formik>
-
-            </div>
-        </div >
+                                        {externalEroor && (
+                                            <Typography fontSize={12} color="error" textAlign="center">{externalEroor.error.message}</Typography>
+                                        )}
+                                    </Box>
+                                </Form>
+                            </Box>
+                        )}
+                    </Formik>
+            }
+        </Container>
     )
 }
 

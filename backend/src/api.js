@@ -3,15 +3,14 @@ const express = require('express')
 const morgan = require('morgan')
 const colors = require('colors')
 const cors = require('cors')
-const path = require('path')
-const packageJson = require('./package.json')
+const packageJson = require('../package.json')
 
 // requiring routes
-const authRoute = require('./src/routes/auth/auth')
-const uploadRoute = require('./src/routes/upload/upload')
+const authRoute = require('./routes/auth/auth')
+const uploadRoute = require('./routes/upload/upload')
 
 // requiring configuration
-const { connectingDatabase } = require('./src/config')
+const { connectingDatabase } = require('./config')
 
 // init the expresse app
 const app = express()
@@ -19,18 +18,16 @@ const app = express()
 // connection the database
 connectingDatabase()
 
-
 // Trusting proxy forward headers if the app is running behind a proxy
 app.set('trust proxy', 1)
 
 // Middleware functions
 app.use(express.json()) // Parse JSON requests
 app.use(express.urlencoded({ extended: true })) // Parse URL-encoded form data
-
 app.use(morgan('dev')) // Log HTTP requests
 app.use(cors({ origin: '*' })) // Enable CORS
-app.use('/api/static', express.static(path.join(__dirname, '/public'))) // Serve static files from the "public" folder
 
+// endpoints
 app.use('/api/auth', authRoute)
 app.use('/api/upload', uploadRoute)
 
@@ -61,6 +58,7 @@ app.use((err, req, res, next) => {
   })
 })
 
+// the app listener
 app.listen(process.env.PORT, () => {
   // write the ASCII art of the api name
   console.log(

@@ -7,14 +7,4 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  & .page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    width: 100%;
-    min-height: 100vh;
-  }
 }

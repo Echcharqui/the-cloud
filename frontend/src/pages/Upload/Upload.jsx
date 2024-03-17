@@ -43,6 +43,7 @@ const FileUploader = () => {
             setChunks(fileChunks);
             setUploading(true);
         }
+        // eslint-disable-next-line
     }, [file])
 
 

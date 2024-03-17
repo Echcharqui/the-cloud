@@ -1,7 +1,7 @@
-# I-cloud
+# The cloud
 
 ## Introduction
-I-cloud is a web-based solution built using the MERN stack, tailored for uploading and downloading large files seamlessly. With support for files up to 100GB, I-cloud integrates advanced features such as chunked file transfer, resume capabilities for interrupted uploads, and a secure sign-in mechanism. This platform serves as an invaluable tool for users needing to manage large datasets, media files, or backups efficiently and securely.
+The cloud is a web-based solution built using the MERN stack, tailored for uploading and downloading large files seamlessly. With support for files up to 100GB, I-cloud integrates advanced features such as chunked file transfer, resume capabilities for interrupted uploads, and a secure sign-in mechanism. This platform serves as an invaluable tool for users needing to manage large datasets, media files, or backups efficiently and securely.
 
 ## Features
 - **Large File Support**: Upload and download files up to 100GB in size.

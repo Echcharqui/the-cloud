@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import { handelPreLoader, updateUser } from '../../redux/actions'
 import { axiosInstance } from '../../utility'
 
-import Logo from '../../assets/images/logo/logo.webp'
+import { Container, Box, Typography } from '@mui/material';
+
+import { PiCloudArrowDownFill } from "react-icons/pi";
 
 import './preloader.scss'
 
@@ -15,15 +17,12 @@ const Preloader = ({ UpdateUser, HandelPreLoader }) => {
         if (accessToken) {
             checkIFtheUserIsAuth()
         } else {
-            // setTimeout(() => {
-                HandelPreLoader(false)
-            // }, 1000);
+            skipPreloader()
         }
     })
 
 
     const checkIFtheUserIsAuth = async () => {
-
         var config = {
             method: 'get',
             url: `/auth/v1/check-auth`,
@@ -32,18 +31,49 @@ const Preloader = ({ UpdateUser, HandelPreLoader }) => {
         await axiosInstance(config)
             .then(function (res) {
                 UpdateUser(res.data)
-                HandelPreLoader(false)
+                skipPreloader()
             })
             .catch(error => {
                 console.log(error);
-                HandelPreLoader(false)
+                skipPreloader()
             });
     }
 
+    const skipPreloader = () => {
+        setTimeout(() => {
+            HandelPreLoader(false)
+        }, 1000);
+    }
+
     return (
-        <div className="preloader flex justify-center items-center h-screen">
-            <img src={Logo} alt="cloud Logo" />
-        </div>
+        <Container
+            maxWidth="sm" // Adjusted for a smaller, more centered form
+            sx={{
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+        >
+            {/* logo */}
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: "center",
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                }}
+            >
+                <PiCloudArrowDownFill
+                    color='#1976d2'
+                    size={80}
+                />
+
+                <Typography sx={{ textAlign: "center", fontSize: 16, color: "#1976d2", fontWeight: "bold", textTransform: "uppercase" }}>The cloud</Typography>
+
+            </Box>
+        </Container>
     )
 }
 
